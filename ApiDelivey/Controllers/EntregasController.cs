@@ -7,19 +7,26 @@ namespace ApiDelivey.Controllers
     [ApiController]
     public class EntregasController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<Entregas>>> Get()
+        private static List<Entregas> entregas = new List<Entregas>
         {
-           var entregas = new List<Entregas>
-            {
-                new Entregas
+                  new Entregas
                 {
                     id = 1,
                     nrEntrega = "01",
                     dataDaEntrega = DateTime.Now
                 }
-                
-            };
+        };
+
+        [HttpGet]
+        public async Task<ActionResult<List<Entregas>>> Get()
+        {
+            return Ok(entregas);
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult<List<Entregas>>> AddEntrega([FromBody]Entregas entrega)
+        {
+            entregas.Add(entrega);
             return Ok(entregas);
         }
     }
